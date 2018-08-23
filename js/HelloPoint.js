@@ -1,0 +1,32 @@
+// HelloPoint.js
+
+//顶点着色器程序
+var VSHADER_SOUREC = 
+    'void main() {\n' + 
+    'gl_Position = vec4(0.0,0.0,0.0,1.0);\n' +
+    'gl_PointSize = 10.0;\n' +
+    '}\n';
+
+//片元着色器程序
+var FSHADER_SOUREC = 
+    'void main() {\n' +
+    'gl_FragColor = vec4(1.0,0.0,0.0,1.0);\n'+  //设置颜色
+    '}\n';
+
+function main() {
+    var canvas = document.getElementById('webgl');
+    var gl = getWebGLContext(canvas);
+    if(!gl){
+        console.log('Failed to get the rendering context for WEBGL');
+        return;
+    }
+
+    if(!initShaders(gl,VSHADER_SOUREC,FSHADER_SOUREC)){
+        console.log('Failed to initialize shaders');
+        return;
+    }
+
+    gl.clearColor(0.0,0.0,0.0,1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.POINTS,0,1);
+}
